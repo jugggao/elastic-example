@@ -1,0 +1,5 @@
+logger:
+  level: info
+  kafka:
+    topic: base-service # 以命名空间区分 Topic
+    servers: kafka.kafka:9092
