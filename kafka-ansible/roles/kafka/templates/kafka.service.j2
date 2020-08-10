@@ -1,0 +1,12 @@
+[Unit]
+Description=kafka
+After=network.target
+
+[Service]
+Type=forking
+WorkingDirectory=/usr/local/kafka
+ExecStart=/usr/bin/sh bin/kafka-server-start.sh -daemon config/server.properties
+ExecStop=/usr/bin/sh bin/kafka-server-stop.sh config/server.properties
+PrivateTmp=true
+User=root
+Group=root

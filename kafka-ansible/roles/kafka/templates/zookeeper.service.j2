@@ -1,0 +1,12 @@
+[Unit]
+Description=zookeeper
+After=network.target
+
+[Service]
+Type=forking
+WorkingDirectory=/usr/local/kafka
+ExecStart=/usr/bin/sh bin/zookeeper-server-start.sh -daemon config/zookeeper.properties
+ExecStop=/usr/bin/sh bin/zookeeper-server-stop.sh config/zookeeper.properties
+PrivateTmp=true
+User=root
+Group=root

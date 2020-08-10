@@ -1,0 +1,7 @@
+---
+
+- name: kibana 部署
+  include_tasks: "{{ ansible_os_family | lower }}_install.yaml"
+
+- name: kibana 配置
+  include_tasks: "configure.yaml"

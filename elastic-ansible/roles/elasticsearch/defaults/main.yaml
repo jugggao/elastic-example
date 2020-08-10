@@ -1,0 +1,20 @@
+---
+
+# elasticsearch 集群配置
+elasticsearch_cluster_config:
+  cluster_name: 'es-cluster'
+
+# elasticsearch 目录配置
+elasticsearch_paths_config:
+  data_path: '/data/lib/elasticsearch'
+  logs_path: '/data/log/elasticsearch'
+
+# elasticsearch 网络配置
+elasticsearch_network_config:
+  http_port: 9200
+  transport_port: 9300
+
+# elasticsearch 集群发现配置
+elasticsearch_discovery_config:
+  transport_port: 9300
+

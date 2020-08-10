@@ -1,0 +1,16 @@
+- name: package 安装常用软件包
+  yum:
+    name: "{{ packages }}"
+    state: present
+    enablerepo: base
+
+- name: package 拷贝 jdk 包
+  copy:
+    src: jdk-8u121-linux-x64.rpm
+    dest: /opt/jdk-8u121-linux-x64.rpm
+
+- name: package 安装 jdk
+  yum:
+    name: /opt/jdk-8u121-linux-x64.rpm
+    state: present
+

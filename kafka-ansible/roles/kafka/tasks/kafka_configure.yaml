@@ -1,0 +1,28 @@
+---
+
+- name: kafka 确定日志目录存在
+  file:
+    path: "{{ kafka_log_dir }}"
+    state: directory
+    mode: '0755'
+
+- name: kafka 生成服务文件
+  template:
+    src: kafka.service.j2
+    dest: /lib/systemd/system/kafka.service
+
+- name: kafka systemd 重新加载
+  systemd:
+    daemon_reload: yes
+
+- name: kafka 生成配置文件
+  template:
+    src: server.properties.j2
+    dest: /usr/local/kafka/config/server.properties
+  notify: restart kafka
+
+- name: kafka 启动服务
+  systemd:
+    name: kafka
+    state: started
+    enabled: yes

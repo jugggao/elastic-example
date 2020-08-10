@@ -1,0 +1,43 @@
+---
+- block:
+  - name: lvm 创建磁盘分区
+    parted:
+      device: "{{ data_disk }}"
+      number: 1
+      label: msdos
+      part_type: primary
+      flags: [ lvm ]
+      state: present
+
+
+  - name: lvm 创建 vg 卷组
+    lvg:
+      vg: data
+      pvs: "{{ data_disk }}1"
+      state: present
+
+  - name: lvm 创建 lvm 卷
+    lvol:
+      vg: data
+      lv: data
+      size: 100%FREE
+      shrink: no
+      state: present
+
+  - name: lvm 创建文件系统
+    filesystem:
+      fstype: xfs
+      device: /dev/data/data
+
+  - name: lvm 创建数据目录
+    file:
+      path: /data
+      state: directory
+
+  - name: lvm 挂载卷至数据目录
+    mount:
+      path: /data
+      src: /dev/mapper/data-data
+      state: mounted
+      fstype: xfs
+  when: data_disk is defined

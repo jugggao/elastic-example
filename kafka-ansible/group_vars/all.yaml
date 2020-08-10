@@ -1,0 +1,3 @@
+# 01.chrony
+chrony_intranet_server: '10.10.115.10'
+network_interface: 'ens192'

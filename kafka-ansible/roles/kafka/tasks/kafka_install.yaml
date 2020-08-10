@@ -1,0 +1,27 @@
+---
+- name: kafka 下载 tar 包
+  get_url:
+    url: https://mirrors.tuna.tsinghua.edu.cn/apache/kafka/{{ kafka_version }}/kafka_{{ scala_version }}-{{ kafka_version }}.tgz
+    dest: /opt/kafka_{{ scala_version }}-{{ kafka_version }}.tgz
+
+# - name: kafka 创建安装目录
+#   file:
+#     path: /usr/local/kafka
+#     state: directory
+#     mode: '0755'
+
+- name: kafka 判断目录是否存在
+  stat:
+    path: /usr/local/kafka
+  register: kafka_dir
+
+- block:
+  - name: kafka 解压 tar 包
+    unarchive:
+      src: /opt/kafka_{{ scala_version }}-{{ kafka_version }}.tgz
+      dest: /usr/local/
+      remote_src: yes
+
+  - name: kafka 重命名目录
+    command: mv /usr/local/kafka_{{ scala_version }}-{{ kafka_version }} /usr/local/kafka
+  when: not kafka_dir.stat.exists

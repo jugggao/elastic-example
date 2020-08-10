@@ -1,0 +1,9 @@
+.cert/
+.bin/
+.vim/
+.vagrant/
+*.retry
+*.vmdk
+.vscode/
+hosts
+test.yaml

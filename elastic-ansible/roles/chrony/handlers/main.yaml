@@ -1,0 +1,6 @@
+---
+- name: restart chrony
+  service:
+    name: chronyd
+    state: restarted
+  when: 'ansible_distribution in ["CentOS","RedHat"]'

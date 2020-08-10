@@ -1,0 +1,6 @@
+---
+- name: system 优化
+  include_tasks: "{{ ansible_os_family | lower }}_system.yaml"
+
+- name: package 安装
+  include_tasks: "{{ ansible_os_family | lower }}_install.yaml"

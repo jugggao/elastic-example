@@ -1,0 +1,22 @@
+---
+
+    - name: kibana rpm 库中导入 gpg key
+      rpm_key:
+        state: present
+        key: https://artifacts.elastic.co/GPG-KEY-elasticsearch
+        fingerprint: 4609 5ACC 8548 582C 1A26 99A9 D27D 666C D88E 42B4
+
+    - name: kibana 添加 yum 仓库
+      yum_repository:
+        name: kibana
+        description: Kibana repository for 7.x packages
+        baseurl: https://artifacts.elastic.co/packages/7.x/yum
+        gpgcheck: yes
+        gpgkey: https://artifacts.elastic.co/GPG-KEY-elasticsearch
+        enabled: yes
+
+    - name: kibana 安装软件包
+      yum:
+        name: kibana
+        state: present
+        enablerepo: kibana

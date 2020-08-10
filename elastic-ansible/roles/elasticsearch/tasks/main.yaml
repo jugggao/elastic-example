@@ -1,0 +1,6 @@
+---
+- name: elasticsearch 安装
+  include_tasks: "{{ ansible_os_family | lower }}_install.yaml"
+
+- name: elasticsearch 集群配置
+  include_tasks: "configure.yaml"

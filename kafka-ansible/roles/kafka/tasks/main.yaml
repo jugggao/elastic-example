@@ -1,0 +1,9 @@
+---
+- name: kafka 安装
+  include_tasks: "kafka_install.yaml"
+
+- name: kafka zk 配置
+  include_tasks: "zookeeper_configure.yaml"
+
+- name: kafka 配置
+  include_tasks: "kafka_configure.yaml"

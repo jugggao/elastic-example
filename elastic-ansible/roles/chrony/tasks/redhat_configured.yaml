@@ -1,0 +1,22 @@
+---
+- name: chrony 设置服务端
+  template:
+    src: chrony-server-redhat.conf.j2
+    dest: /etc/chrony.conf
+  notify: restart chrony
+  when:
+    - "inventory_hostname == groups.chrony[0]"
+
+- name: chrony 设置客户端
+  template:
+    src: chrony-client-redhat.conf.j2
+    dest: /etc/chrony.conf
+  notify: restart chrony
+  when: 'inventory_hostname != groups.chrony[0]'
+
+- name: chrony 设置自启动
+  systemd:
+    name: chronyd
+    state: started
+    enabled: yes
+    masked: no

@@ -1,0 +1,10 @@
+---
+- name : kibana 导入 elasticsearch 变量
+  include_vars:
+    file: "{{ role_path }}/../elasticsearch/defaults/main.yaml"
+
+- name: kibana 生成配置文件
+  template:
+    src: kibana.yml.j2
+    dest: /etc/kibana/kibana.yml
+  notify: restart kibana

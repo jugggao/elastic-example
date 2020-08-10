@@ -1,0 +1,48 @@
+---
+- name: selinux 禁用
+  selinux:
+    state: disabled
+
+- name: ulimits 创建 systemd 配置目录
+  file:
+    name: /etc/systemd/system.conf.d
+    state: directory
+
+- name: ulimits 生成配置文件
+  template:
+    src: 30-kafka-ulimits.conf.j2
+    dest: /etc/systemd/system.conf.d/30-kafka-ulimits.conf
+
+- name: journal 创建日志目录
+  file:
+    name: "{{ item }}"
+    state: directory
+  with_items:
+  - "/etc/systemd/journald.conf.d"
+  - "/var/log/journal"
+
+- name: swap 状态变量注册
+  command: /sbin/swapon -s
+  register: swapon
+  changed_when: no
+
+- block:
+  - name: swap 删除 fstab 中相关配置
+    mount:
+      name: "{{ item }}"
+      fstype: swap
+      state: absent
+    with_items:
+      - swap
+      - none
+
+  - name: swap 禁用
+    command: /sbin/swapoff -a
+  when: swapon.stdout
+
+- name: 系统参数调优
+  sysctl:
+    name: "{{ item.key }}"
+    value: "{{ item.value }}"
+    reload: yes
+  with_items: "{{ prepare_sysctl_config | dict2items  }}"

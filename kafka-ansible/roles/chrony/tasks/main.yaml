@@ -1,0 +1,17 @@
+---
+- name: chory ntp 卸载
+  package:
+    name: ntp
+    state: absent
+
+- name: chrony 安装
+  package:
+    name: chrony
+    state: present
+
+- name: chrony 配置
+  include_tasks: "{{ ansible_os_family | lower }}_configured.yaml"
+
+- name: timezone 配置
+  timezone:
+    name: "{{ chrony_timezone }}"

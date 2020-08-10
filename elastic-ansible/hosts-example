@@ -1,0 +1,16 @@
+[chrony]
+10.10.115.10
+
+[elastic]
+10.10.115.11 role=node-1 data_disk=/dev/sdb
+10.10.115.12 role=node-2 data_disk=/dev/sdb
+10.10.115.13 role=node-3 data_disk=/dev/sdb
+10.10.115.14 role=coordinate
+
+[kibana]
+10.10.115.15 role=kibana
+
+[all:vars]
+ansible_ssh_port=22
+ansible_ssh_user=root
+ansible_ssh_pass=''

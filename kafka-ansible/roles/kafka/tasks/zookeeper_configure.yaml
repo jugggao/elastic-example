@@ -1,0 +1,39 @@
+---
+
+- name: zk 确认数据目录存在
+  file:
+    path: "{{ item }}"
+    state: directory
+    mode: '0755'
+  with_list:
+  - "{{ zookeeper_data_dir }}"
+  - "{{ zookeeper_log_dir }}"
+
+- name: zk 生成服务文件
+  template:
+    src: zookeeper.service.j2
+    dest: /lib/systemd/system/zookeeper.service
+
+- name: zk systemd 重新加载
+  systemd:
+    daemon_reload: yes
+
+- name: zk 生成脚本
+  template:
+    src: setid.sh.j2
+    dest: /usr/local/kafka/bin/setid.sh
+
+- name: zk 生成 id 文件
+  shell: 'source /usr/local/kafka/bin/setid.sh'
+
+- name: zk 生成配置文件
+  template:
+    src: zookeeper.properties.j2
+    dest: /usr/local/kafka/config/zookeeper.properties
+  notify: restart zookeeper
+
+- name: zk 启动服务
+  systemd:
+    name: zookeeper
+    state: started
+    enabled: yes

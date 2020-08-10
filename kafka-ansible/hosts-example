@@ -1,0 +1,12 @@
+[chrony]
+10.10.115.10
+
+[kafka]
+10.10.114.16 broker_id=0 zk_id=1
+10.10.114.17 broker_id=1 zk_id=2
+10.10.114.18 broker_id=2 zk_id=3
+
+[all:vars]
+ansible_ssh_port=22
+ansible_ssh_user=root
+ansible_ssh_pass=''

@@ -1,0 +1,6 @@
+---
+- name: lvm 创建数据卷
+  include_tasks: "{{ ansible_os_family | lower }}_lvm.yaml"
+
+- name: system 优化
+  include_tasks: "{{ ansible_os_family | lower }}_system.yaml"
