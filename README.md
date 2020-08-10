@@ -29,6 +29,8 @@
 
 [Logback kafka 依赖配置文件参考](./logback/pom.xml)
 
+[Logback Configserver 配置参考](/logback/application.yaml)
+
 [Logstash 处理 Logback 日志管道参考](./logstash/logback-spring.conf)
 
 
