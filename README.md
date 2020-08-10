@@ -25,11 +25,9 @@
 
 ### Logback Spring 日志处理
 
-[Logback Spring 配置文件参考](./logback/logback-spring.conf)
+[Logback Spring 配置文件参考](./logback/logback-spring.xml)
 
 [Logback kafka 依赖配置文件参考](./logback/pom.xml)
-
-- 
 
 [Logstash 处理 Logback 日志管道参考](./logstash/logback-spring.conf)
 
